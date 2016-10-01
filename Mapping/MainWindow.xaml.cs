@@ -239,7 +239,7 @@ namespace Mapping
             string[] text = { "Make: " + comboMarca.Text, "Model: " + comboModelo.Text, "Engine: " + comboMotor.Text, "ECU: " + comboECU.Text, "SW: " + txtSW.Text, "HW: " + txtHW.Text, "HP " + comboHP.Text, "Production year: " + comboGod.Text, "Modification info: " + chkBox + txtOpis.Text };
             string time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             time = time.Replace(':', '.');
-            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + time;
+            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + txtVlasnik.Text + '_'+ time;
             if (!System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.CreateDirectory(path);
