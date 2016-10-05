@@ -231,11 +231,6 @@ namespace Mapping
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if (chkS1.IsChecked ?? true)
-            {
-
-            }
-
             string[] text = { "Make: " + comboMarca.Text, "Model: " + comboModelo.Text, "Engine: " + comboMotor.Text, "ECU: " + comboECU.Text, "SW: " + txtSW.Text, "HW: " + txtHW.Text, "HP " + comboHP.Text, "Production year: " + comboGod.Text, "Modification info: " + chkBox + txtOpis.Text };
             string time = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
             time = time.Replace(':', '.');
@@ -247,15 +242,21 @@ namespace Mapping
             string fileNameORI = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".ORI";
             string fileNameMOD = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".MOD";
             string fileNameKP = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".KP";
+            
+            
             string destFileORI = System.IO.Path.Combine(path, fileNameORI);
             string destFileMOD = System.IO.Path.Combine(path, fileNameMOD);
             string destFileKP = System.IO.Path.Combine(path, fileNameKP);
+
             try
             {
                 System.IO.File.Copy(ofdORI.FileName, destFileORI, true);
                 System.IO.File.Copy(ofdMOD.FileName, destFileMOD, true);
-                System.IO.File.Copy(ofdKP.FileName, destFileKP, true);
-                System.IO.File.WriteAllLines(path + "\\Info_" + time + ".txt", text);
+                if (txtKP.Text.Length > 3)
+                {
+                    System.IO.File.Copy(ofdKP.FileName, destFileKP, true);
+                }
+                    System.IO.File.WriteAllLines(path + "\\Info_" + time + ".txt", text);
                 MessageBox.Show("File saved successfully!");
             }
             catch (Exception err)
