@@ -4,6 +4,7 @@ using MahApps.Metro.Controls;
 using Microsoft.Win32;
 using System.Data.SQLite;
 using Ookii.Dialogs.Wpf;
+using System.Collections.Generic;
 
 namespace Mapping
 {
@@ -14,7 +15,8 @@ namespace Mapping
     {
         static string conString = @"Data Source=Resources\Cars.db;Version=3;FailIfMissing=True; Foreign Keys=True;";
         public string chkBox = "";
-        public string sPath = @"C:\Users\Enzo\Google Drive\Mapping";
+        public List<string> chkBoxL = new List<string>();
+        public string sPath = @"C:\Users\Enzo\Google disk\Mapping";
 
         OpenFileDialog ofdORI = new OpenFileDialog();
         OpenFileDialog ofdMOD = new OpenFileDialog();
@@ -28,13 +30,11 @@ namespace Mapping
                 NadjiMarcu();
                 Init();
                 txtLoc.Text = sPath;
-
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
-
         }
 
         private void Init()
@@ -52,9 +52,7 @@ namespace Mapping
                 hp += 5;
                 comboHP.Items.Add(hp.ToString());
             }
-
         }
-
 
         private void NadjiMarcu()
         {
@@ -69,14 +67,14 @@ namespace Mapping
                     {
                         while (reader.Read())
                         {
-                            comboMarca.Items.Add(reader["Marca"].ToString());   
+                            comboMarca.Items.Add(reader["Marca"].ToString());
                         }
                     }
                 }
                 conn.Close();
             }
         }
-        
+
         private void NadjiModel(string Marca)
         {
             comboModelo.Items.Clear();
@@ -97,8 +95,6 @@ namespace Mapping
                 }
                 conn.Close();
             }
-            
-
         }
 
         private void NadjiMotor(string Model)
@@ -121,7 +117,6 @@ namespace Mapping
                 }
                 conn.Close();
             }
-
         }
 
         private void NadjiECU(string Motor)
@@ -145,14 +140,13 @@ namespace Mapping
                 conn.Close();
             }
         }
-        
+
         private void comboMarca_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(comboMarca.Text))
             {
                 NadjiModel(comboMarca.Text);
             }
-
         }
 
         private void comboModelo_SelectedIndexChanged(object sender, EventArgs e)
@@ -161,7 +155,6 @@ namespace Mapping
             {
                 NadjiMotor(comboModelo.Text);
             }
-
         }
 
         private void comboMotor_SelectedIndexChanged(object sender, EventArgs e)
@@ -170,14 +163,8 @@ namespace Mapping
             {
                 NadjiECU(comboMotor.Text);
             }
-
         }
 
-        private void comboECU_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-  
         private void btnORI_Click(object sender, EventArgs e)
         {
             ofdORI.Filter = "ORI|*.ori";
@@ -212,7 +199,6 @@ namespace Mapping
                 txtKP.Text = ofdKP.FileName;
 
             }
-
         }
 
         private void btnLoc_Click(object sender, RoutedEventArgs e)
@@ -231,10 +217,14 @@ namespace Mapping
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            foreach (var item in chkBoxL)
+            {
+                chkBox += item + " ";
+            }
             string[] text = { "Make: " + comboMarca.Text, "Model: " + comboModelo.Text, "Engine: " + comboMotor.Text, "ECU: " + comboECU.Text, "SW: " + txtSW.Text, "HW: " + txtHW.Text, "HP " + comboHP.Text, "Production year: " + comboGod.Text, "Modification info: " + chkBox + txtOpis.Text };
-            string time = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss");
+            string time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             time = time.Replace(':', '.');
-            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + txtVlasnik.Text.Replace('\\', '_') + "\\" + time;
+            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + time;
             if (!System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.CreateDirectory(path);
@@ -242,71 +232,129 @@ namespace Mapping
             string fileNameORI = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".ORI";
             string fileNameMOD = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".MOD";
             string fileNameKP = comboMarca.Text.Replace('/', '_') + "_" + comboModelo.Text.Replace('/', '_') + "_" + comboECU.Text.Replace('/', '_') + "_" + comboHP.Text + "_" + time + ".KP";
-            
-            
             string destFileORI = System.IO.Path.Combine(path, fileNameORI);
             string destFileMOD = System.IO.Path.Combine(path, fileNameMOD);
             string destFileKP = System.IO.Path.Combine(path, fileNameKP);
-
             try
             {
                 System.IO.File.Copy(ofdORI.FileName, destFileORI, true);
                 System.IO.File.Copy(ofdMOD.FileName, destFileMOD, true);
-                if (txtKP.Text.Length > 3)
-                {
-                    System.IO.File.Copy(ofdKP.FileName, destFileKP, true);
-                }
-                    System.IO.File.WriteAllLines(path + "\\Info_" + time + ".txt", text);
+                System.IO.File.Copy(ofdKP.FileName, destFileKP, true);
+                System.IO.File.WriteAllLines(path + "\\Info_" + time + ".txt", text);
+                chkBox = "";
+                chkBoxL.Clear();
+                chkDPF.IsChecked = false;
+                chkDTC.IsChecked = false;
+                chkEGR.IsChecked = false;
+                chkHS.IsChecked = false;
+                chkS1.IsChecked = false;
+                chkS2.IsChecked = false;
+                chkS3.IsChecked = false;
+                chkSS.IsChecked = false;
                 MessageBox.Show("File saved successfully!");
             }
             catch (Exception err)
             {
                 MessageBox.Show(err.Message);
             }
-
-
         }
 
         private void chkS1_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "Stage 1 ";
+            if (chkS1.IsChecked == true)
+            {
+                chkBoxL.Add("Stage 1");
+            }
+            else
+            {
+                chkBoxL.Remove("Stage 1");
+            }
         }
 
         private void chkS2_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "Stage 2 ";
+            if (chkS2.IsChecked == true)
+            {
+                chkBoxL.Add("Stage 2");
+            }
+            else
+            {
+                chkBoxL.Remove("Stage 2");
+            }
         }
 
         private void chkS3_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "Stage 3 ";
+            if (chkS3.IsChecked == true)
+            {
+                chkBoxL.Add("Stage 3");
+            }
+            else
+            {
+                chkBoxL.Remove("Stage 3");
+            }
         }
 
         private void chkEGR_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "EGR OFF ";
+            if (chkEGR.IsChecked == true)
+            {
+                chkBoxL.Add("EGR OFF");
+            }
+            else
+            {
+                chkBoxL.Remove("EGR OFF");
+            }
         }
 
         private void chkDPF_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "DPF OFF ";
+            if (chkDPF.IsChecked == true)
+            {
+                chkBoxL.Add("DPF OFF");
+            }
+            else
+            {
+                chkBoxL.Remove("DPF OFF");
+            }
         }
 
         private void chkHS_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "Hot Start ";
+            if (chkHS.IsChecked == true)
+            {
+                chkBoxL.Add("Hot Start");
+            }
+            else
+            {
+                chkBoxL.Remove("Hot Start");
+            }
         }
 
         private void chkSS_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "Start and Stop OFF ";
+            if (chkSS.IsChecked == true)
+            {
+                chkBoxL.Add("Start and Stop OFF");
+            }
+            else
+            {
+                chkBoxL.Remove("Start and Stop OFF");
+            }
         }
 
         private void chkDTC_Checked(object sender, RoutedEventArgs e)
         {
-            chkBox += "DTC OFF ";
+            if (chkDTC.IsChecked == true)
+            {
+                chkBoxL.Add("DTC OFF");
+            }
+            else
+            {
+                chkBoxL.Remove("DTC OFF");
+            }
         }
 
-        
+
     }
 }

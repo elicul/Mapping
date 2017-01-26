@@ -7,8 +7,8 @@
                       ResizeMode="NoResize"
                       WindowTransitionsEnabled="False"
                       WindowStartupLocation="CenterScreen"
-                      Title="ECU Mapping by Enzo"
-                      Height="720"
+                      Title="ECU Mapping Uploader"
+                      Height="715"
                       Width="530">
 
     <!-- your content -->
@@ -36,23 +36,22 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Label>Make:</Label>
         <ComboBox Name="comboMarca" Grid.Column="1" Margin="0,0,0,10" DropDownClosed="comboMarca_SelectedIndexChanged" IsEditable="True" IsReadOnly="True" Text="Select a make"/>
         <Label Grid.Column="2">Model:</Label>
         <ComboBox Name="comboModelo" Grid.Column="3" Margin="0,0,0,10" DropDownClosed="comboModelo_SelectedIndexChanged" IsEditable="True" IsReadOnly="True" Text="Select a model"/>
-                    
+
         <Label Grid.Row="1">Engine:</Label>
         <ComboBox Name="comboMotor" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" DropDownClosed="comboMotor_SelectedIndexChanged" IsEditable="True" IsReadOnly="True" Text="Select an engine"/>
         <Label Grid.Row="1" Grid.Column="2">Ecu:</Label>
-        <ComboBox Name="comboECU" Grid.Row="1" Grid.Column="3" Margin="0,0,0,10" DropDownClosed="comboECU_SelectedIndexChanged" IsEditable="True" IsReadOnly="True" Text="Select an ECU"/>
-                    
+        <ComboBox Name="comboECU" Grid.Row="1" Grid.Column="3" Margin="0,0,0,10" IsEditable="True" IsReadOnly="True" Text="Select an ECU"/>
+
         <Label Grid.Row="2">HP:</Label>
         <ComboBox Name="comboHP" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" IsEditable="True" IsReadOnly="True" Text="Select the HP"/>
         <Label Grid.Row="2" Grid.Column="2">Year:</Label>
         <ComboBox Name="comboGod" Grid.Row="2" Grid.Column="3" Margin="0,0,0,10" IsEditable="True" IsReadOnly="True" Text="Select the year"/>
-                    
+
         <Label Grid.Row="3">SW:</Label>
         <TextBox Name="txtSW" Grid.Row="3" Grid.Column="1"/>
         <Label Grid.Row="3" Grid.Column="2">HW:</Label>
@@ -60,40 +59,37 @@
 
         <Label Grid.Row="4" Margin="0,20,0,20">Tuning information:</Label>
 
-        <CheckBox Name="chkS1" Grid.Row="5" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS1_Checked">Stage 1</CheckBox>
-        <CheckBox Name="chkS2" Grid.Row="5" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS2_Checked" Grid.Column="2">Stage 2</CheckBox>
+        <CheckBox Name="chkS1" Grid.Row="5" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS1_Checked" Unchecked="chkS1_Checked">Stage 1</CheckBox>
+        <CheckBox Name="chkS2" Grid.Row="5" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS2_Checked" Unchecked="chkS2_Checked" Grid.Column="2">Stage 2</CheckBox>
 
-        <CheckBox Name="chkS3" Grid.Row="6" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS3_Checked">Stage 3</CheckBox>
-        <CheckBox Name="chkEGR" Grid.Row="6" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkEGR_Checked">EGR OFF</CheckBox>
+        <CheckBox Name="chkS3" Grid.Row="6" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkS3_Checked" Unchecked="chkS3_Checked">Stage 3</CheckBox>
+        <CheckBox Name="chkEGR" Grid.Row="6" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkEGR_Checked" Unchecked="chkEGR_Checked">EGR OFF</CheckBox>
 
-        <CheckBox Name="chkDPF" Grid.Row="7" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkDPF_Checked">DPF OFF</CheckBox>
-        <CheckBox Name="chkHS" Grid.Row="7" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkHS_Checked">Hot start</CheckBox>
+        <CheckBox Name="chkDPF" Grid.Row="7" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkDPF_Checked" Unchecked="chkDPF_Checked">DPF OFF</CheckBox>
+        <CheckBox Name="chkHS" Grid.Row="7" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkHS_Checked" Unchecked="chkHS_Checked">Hot start</CheckBox>
 
-        <CheckBox Name="chkSS" Grid.Row="8" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkSS_Checked">Start and Stop OFF</CheckBox>
-        <CheckBox Name="chkDTC" Grid.Row="8" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkDTC_Checked">DTC OFF</CheckBox>
+        <CheckBox Name="chkSS" Grid.Row="8" Margin="0,0,0,10" Grid.ColumnSpan="2" Checked="chkSS_Checked" Unchecked="chkSS_Checked">Start and Stop OFF</CheckBox>
+        <CheckBox Name="chkDTC" Grid.Row="8" Margin="0,0,0,10" Grid.ColumnSpan="2" Grid.Column="2" Checked="chkDTC_Checked" Unchecked="chkDTC_Checked">DTC OFF</CheckBox>
 
 
         <Label Grid.Row="9" Margin="0,20,0,20">Extra info:</Label>
         <TextBox Name="txtOpis" Grid.Row="9" Margin="0,20,0,20" Grid.ColumnSpan="3" Grid.Column="1"/>
-        
-        <Label Grid.Row="10" Margin="0,0,0,10">Car owner:</Label>
-        <TextBox Name="txtVlasnik" Grid.Row="10" Margin="0,0,0,10" Grid.ColumnSpan="3" Grid.Column="1"/>
 
-        <Label Grid.Row="11" Grid.ColumnSpan="4" Margin="0,20,0,20">Select files:</Label>
+        <Label Grid.Row="10" Grid.ColumnSpan="4" Margin="0,20,0,20">Select files:</Label>
 
-        <Button Name="btnORI" Click="btnORI_Click" Grid.Row="12" Margin="0,0,0,10">ORI</Button>
-        <TextBox Name="txtORI" Grid.Row="12" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
-        <Button Name="btnMOD" Click="btnMOD_Click" Grid.Row="13" Margin="0,0,0,10">MOD</Button>
-        <TextBox Name="txtMOD" Grid.Row="13" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True"/>
-        <Button Name="btnKP" Click="btnKP_Click" Grid.Row="14" Margin="0,0,0,10">KP</Button>
-        <TextBox Name="txtKP" Grid.Row="14" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
-                    
-        <Button Name="btnLoc" Click="btnLoc_Click" Grid.Row="15" Margin="0,0,0,10">Files saving location</Button>
-        <TextBox Name="txtLoc" Grid.Row="15" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
+        <Button Name="btnORI" Click="btnORI_Click" Grid.Row="11" Margin="0,0,0,10">ORI</Button>
+        <TextBox Name="txtORI" Grid.Row="11" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
+        <Button Name="btnMOD" Click="btnMOD_Click" Grid.Row="12" Margin="0,0,0,10">MOD</Button>
+        <TextBox Name="txtMOD" Grid.Row="12" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True"/>
+        <Button Name="btnKP" Click="btnKP_Click" Grid.Row="13" Margin="0,0,0,10">KP</Button>
+        <TextBox Name="txtKP" Grid.Row="13" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
 
-        <Button Name="btnSave" Click="btnSave_Click" Grid.Row="16" Margin="0,15,0,15" HorizontalAlignment="Center" Grid.ColumnSpan="4" >Upload files</Button>
+        <Button Name="btnLoc" Click="btnLoc_Click" Grid.Row="14" Margin="0,0,0,10">Files saving location</Button>
+        <TextBox Name="txtLoc" Grid.Row="14" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />
+
+        <Button Name="btnSave" Click="btnSave_Click" Grid.Row="15" Margin="0,30,0,30" HorizontalAlignment="Center" Grid.ColumnSpan="4" >Upload files</Button>
     </Grid>
-            
+
 </Controls:MetroWindow>
     
    
