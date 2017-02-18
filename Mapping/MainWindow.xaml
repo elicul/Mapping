@@ -75,7 +75,9 @@
         <Label Grid.Row="9" Margin="0,20,0,20">Extra info:</Label>
         <TextBox Name="txtOpis" Grid.Row="9" Margin="0,20,0,20" Grid.ColumnSpan="3" Grid.Column="1"/>
 
-        <Label Grid.Row="10" Grid.ColumnSpan="4" Margin="0,20,0,20">Select files:</Label>
+        <Label Grid.Row="10" Margin="0,20,0,20">Vehicle owner:</Label>
+        <TextBox Name="txtVlasnik" Grid.Row="10" Margin="0,20,0,20" Grid.ColumnSpan="1" Grid.Column="1"/>
+        <CheckBox Name="chkVlasnik" Grid.Row="10" Margin="10,10,10,10" Grid.ColumnSpan="2" Grid.Column="3" Checked="chkVlasnik_Checked" Unchecked="chkVlasnik_Checked">Owner unknown</CheckBox>
 
         <Button Name="btnORI" Click="btnORI_Click" Grid.Row="11" Margin="0,0,0,10">ORI</Button>
         <TextBox Name="txtORI" Grid.Row="11" Margin="10,0,0,10" Grid.ColumnSpan="3" Grid.Column="1" IsReadOnly="True" />

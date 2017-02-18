@@ -16,7 +16,7 @@ namespace Mapping
         static string conString = @"Data Source=Resources\Cars.db;Version=3;FailIfMissing=True; Foreign Keys=True;";
         public string chkBox = "";
         public List<string> chkBoxL = new List<string>();
-        public string sPath = @"C:\Users\Enzo\Google disk\Mapping";
+        public string sPath = @"C:\Users\Enzo\Google Drive\Mapping";
 
         OpenFileDialog ofdORI = new OpenFileDialog();
         OpenFileDialog ofdMOD = new OpenFileDialog();
@@ -224,7 +224,7 @@ namespace Mapping
             string[] text = { "Make: " + comboMarca.Text, "Model: " + comboModelo.Text, "Engine: " + comboMotor.Text, "ECU: " + comboECU.Text, "SW: " + txtSW.Text, "HW: " + txtHW.Text, "HP " + comboHP.Text, "Production year: " + comboGod.Text, "Modification info: " + chkBox + txtOpis.Text };
             string time = DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
             time = time.Replace(':', '.');
-            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + time;
+            string path = sPath + @"\" + comboMarca.Text.Replace('\\', '_') + "\\" + comboModelo.Text.Replace('\\', '_') + "\\" + txtVlasnik.Text + "\\" + time;
             if (!System.IO.Directory.Exists(path))
             {
                 System.IO.Directory.CreateDirectory(path);
@@ -352,6 +352,19 @@ namespace Mapping
             else
             {
                 chkBoxL.Remove("DTC OFF");
+            }
+        }
+
+        private void chkVlasnik_Checked(object sender, RoutedEventArgs e)
+        {
+            if (chkVlasnik.IsChecked == true)
+            {
+                txtVlasnik.Text = "Nepoznati";
+                txtVlasnik.IsEnabled = false;
+            }
+            else
+            {
+                txtVlasnik.IsEnabled = true;
             }
         }
 
